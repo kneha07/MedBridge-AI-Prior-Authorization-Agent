@@ -2,61 +2,53 @@
 
 > Prior auth handled in minutes. Not days.
 
-MedBridge is an AI agent platform that automates healthcare prior authorization end-to-end — scanning payer policies, analyzing medical records, submitting via EDI 278, and automatically drafting appeals when denied. Built for the $19.7B administrative burden the U.S. healthcare system carries every year (AMA, 2023).
+MedBridge is an AI agent that automates healthcare prior authorization end-to-end — from scanning payer policies and analyzing medical records, to submitting via EDI 278 and auto-drafting appeals on denial. Built to attack the **$19.7B annual administrative burden** U.S. healthcare carries for a process that still runs on fax machines.
 
 ---
 
 ## The Problem
 
-Every time a physician orders an MRI, surgery, or specialist referral, insurance companies require **prior authorization** before they'll pay. Today that process looks like this:
+Every MRI, surgery, or specialist referral requires **prior authorization** before insurance pays. Today:
 
-- Staff manually fills out 10+ page forms
-- Faxes them to insurance portals (yes, still fax)
-- Waits 3–5 business days for a response
-- 1 in 5 requests gets **denied** — triggering hours more of manual appeal work
-- Meanwhile the patient waits, untreated
+- Staff manually fills 10+ page forms and faxes them (yes, still fax)
+- Payers take **3–5 business days** to respond
+- **1 in 5** requests is denied — triggering hours more of manual appeal work
+- Patients wait, untreated, while paperwork stalls care
 
-**$19.7 billion** is lost annually to this administrative burden — not because the process is complex, but because humans are doing work that shouldn't require humans.
-
----
-
-## The Solution
-
-MedBridge is the **agent layer on top of your existing payer portals and EHR systems.** You fill out one form. The AI agent handles everything else autonomously.
-
-### What the agent does
-
-| Step | Tool | What happens |
-|------|------|-------------|
-| 1 | `scan_insurance_policy` | Pulls coverage criteria and clinical requirements from the payer database |
-| 2 | `analyze_medical_records` | Evaluates patient history and establishes medical necessity |
-| 3 | `fill_authorization_form` | Auto-populates all required fields — 96% completeness |
-| 4 | `submit_authorization` | Transmits via EDI 278 to the payer portal |
-| 5 | `track_authorization_status` | Checks initial decision and sets up real-time monitoring |
-| 6 | `draft_appeal` *(if denied)* | Detects denial code, generates clinical appeal letter with supporting evidence |
-
-### The key differentiator — Denial Auto-Appeal
-
-When an authorization is denied, MedBridge doesn't stop. It:
-1. Reads the denial reason and denial code (e.g. CO-50)
-2. Pulls supporting clinical evidence from the patient record
-3. Generates a formal appeal letter citing CMS guidelines
-4. Attaches documentation (office notes, VAS scores, failed treatment records)
-5. Queues it for physician co-signature and auto-submission
-
-This is the workflow that currently takes staff 2–3 additional days. MedBridge does it in seconds.
+$19.7B lost annually — not because the process is hard, but because humans are doing work that AI should handle.
 
 ---
 
 ## Demo
 
-**Try Demo Scenarios:**
-- **Standard Approval** — Full prior auth submitted and confirmed
-- **Denial + Auto-Appeal** — Auth denied, appeal drafted automatically in the same run
+**Live demo patient:** Margaret R. Thompson · Lumbar MRI · Aetna · ICD-10 M72.5
 
-**Demo patient:** Margaret R. Thompson — Lumbar MRI, Aetna, ICD-10 M72.5
+Click **"✨ Try Demo"** on the form to auto-fill everything.
 
-Click **"✨ Try Demo"** on the form to auto-fill all fields.
+Two scenarios:
+| Scenario | What you see |
+|---|---|
+| **Standard Approval** | Full prior auth submitted and confirmed end-to-end |
+| **Denial + Auto-Appeal** | Auth denied → appeal drafted automatically in the same run |
+
+---
+
+## How It Works
+
+MedBridge runs a real **agentic tool-use loop** — the LLM decides which tool to call next, observes the result, and continues until the workflow is complete. No hardcoded sequences.
+
+| Step | Tool | What happens |
+|------|------|-------------|
+| 1 | `scan_insurance_policy` | Pulls coverage criteria and clinical requirements from payer database |
+| 2 | `analyze_medical_records` | Evaluates patient history and establishes medical necessity |
+| 3 | `fill_authorization_form` | Auto-populates all required fields — 96% completeness |
+| 4 | `submit_authorization` | Transmits via EDI 278 to the payer portal |
+| 5 | `track_authorization_status` | Checks initial decision, sets up real-time monitoring |
+| 6 | `draft_appeal` *(if denied)* | Reads denial code, generates clinical appeal letter with supporting evidence |
+
+### Denial Auto-Appeal — the key differentiator
+
+When denied, MedBridge doesn't stop. It reads the denial reason (e.g. CO-50), pulls supporting clinical evidence, generates a formal CMS-compliant appeal letter, and queues it for physician co-signature and submission. A workflow that takes staff 2–3 days — done in seconds.
 
 ---
 
@@ -65,33 +57,32 @@ Click **"✨ Try Demo"** on the form to auto-fill all fields.
 ```
 ┌─────────────────────────────────────────────────────┐
 │                   React Frontend                     │
-│         (Vite · Inline styles · Real-time polling)   │
+│         (Vite · Real-time step polling)              │
 └──────────────────────┬──────────────────────────────┘
                        │ HTTP + 1.5s polling
 ┌──────────────────────▼──────────────────────────────┐
 │                  FastAPI Backend                     │
-│              POST /api/workflow/submit               │
-│              GET  /api/workflow/{id}/status          │
+│         POST /api/workflow/submit                    │
+│         GET  /api/workflow/{id}/status               │
 └──────────────────────┬──────────────────────────────┘
                        │
 ┌──────────────────────▼──────────────────────────────┐
-│                  Agent Runner                        │
-│   Agentic loop: LLM → tool_use → observe → repeat   │
-│   Provider: Groq (LLaMA 3.3 70B) · free tier        │
+│               Agentic Runner                         │
+│   LLM → tool_use → observe → repeat                  │
+│   Providers: Groq (LLaMA 3.3-70B) · Gemini          │
 └──────────────────────┬──────────────────────────────┘
                        │
 ┌──────────────────────▼──────────────────────────────┐
-│              Healthcare Vertical                     │
-│   6 tools · HIPAA-aware · EDI 278 submission         │
-│   Payers: Aetna · BCBS · UHC · Cigna · Humana       │
+│           Healthcare Vertical (6 tools)              │
+│   HIPAA-aware · EDI 278 · CMS 2026 compliant         │
+│   Payers: Aetna · BCBS · UHC · Cigna · Humana        │
 └─────────────────────────────────────────────────────┘
 ```
 
 **Backend:** FastAPI · Python 3.11  
-**AI:** Groq API (LLaMA 3.3-70b-versatile) — real agentic tool-use loop, not a chatbot  
+**AI:** Groq (LLaMA 3.3-70B) — real agentic tool-use, not a chatbot  
 **Frontend:** React · Vite  
-**State:** In-memory (demo) — plugs into any database for production  
-**Compliance:** HIPAA-aware design · CMS compliant 2026 · EDI 278 format  
+**State:** In-memory for demo — drop-in DB for production  
 
 ---
 
@@ -100,15 +91,14 @@ Click **"✨ Try Demo"** on the form to auto-fill all fields.
 ### Prerequisites
 - Python 3.11+
 - Node.js 18+
-- Groq API key (free at [console.groq.com](https://console.groq.com))
+- Groq API key — free at [console.groq.com](https://console.groq.com)
 
 ### 1. Environment
 
-Create a `.env` file in the project root:
-
 ```env
+# .env in project root
 GROQ_API_KEY=your_groq_api_key_here
-ANTHROPIC_API_KEY=           # optional, for MedBridge Standard mode
+GEMINI_API_KEY=           # optional, for Gemini provider
 ```
 
 ### 2. Backend
@@ -130,6 +120,12 @@ npm run dev
 ```
 
 Open [http://localhost:5173](http://localhost:5173)
+
+### Docker
+
+```bash
+docker-compose up
+```
 
 ---
 
@@ -158,7 +154,7 @@ Open [http://localhost:5173](http://localhost:5173)
     "insurance_id": "AET-9284736501",
     "treatment_type": "MRI",
     "diagnosis_code": "M72.5",
-    "treatment_description": "Lumbar spine MRI...",
+    "treatment_description": "Lumbar spine MRI with and without contrast",
     "requesting_physician": "Dr. Sarah Chen",
     "physician_npi": "1234567890",
     "demo_scenario": "Standard Approval"
@@ -170,18 +166,18 @@ Open [http://localhost:5173](http://localhost:5173)
 
 ## Roadmap
 
-MedBridge is architected as a vertical platform. Adding a new workflow requires one Python module — the agent loop, frontend, and polling are fully generic.
+MedBridge is built as a vertical platform — adding a new workflow is one Python module. The agent loop, frontend, and polling are fully generic.
 
 **Next healthcare workflows:**
-- 🔄 Step Therapy Exceptions — override fail-first requirements with clinical evidence
-- 📋 Specialist Referrals — automate HMO referral submissions and approvals
-- 💊 Medication Appeals — dispute formulary denials for non-covered drugs
+- Step Therapy Exceptions — override fail-first drug requirements with clinical evidence
+- Specialist Referrals — automate HMO referral submissions and approvals
+- Medication Appeals — dispute formulary denials for non-covered drugs
 
 ---
 
 ## Built With
 
 - [FastAPI](https://fastapi.tiangolo.com/) — async Python backend
-- [Groq](https://groq.com/) — LLaMA 3.3 70B inference, free tier
+- [Groq](https://groq.com/) — LLaMA 3.3-70B, free tier
 - [React](https://react.dev/) + [Vite](https://vitejs.dev/) — frontend
-- [Anthropic SDK](https://docs.anthropic.com/) — Claude integration (optional)
+- [Google Gemini](https://ai.google.dev/) — alternative AI provider
