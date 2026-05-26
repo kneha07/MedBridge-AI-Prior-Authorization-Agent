@@ -6,7 +6,7 @@
 
 ## Slides
 
-> Add your slide deck link here
+[MedBridge_Presentation_Deck.pdf](MedBridge_Presentation_Deck.pdf)
 
 ## Video Walkthrough
 

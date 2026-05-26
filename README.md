@@ -19,6 +19,12 @@ $19.7B lost annually — not because the process is hard, but because humans are
 
 ---
 
+## Presentation
+
+[Download Slide Deck (PDF)](presentation/MedBridge_Presentation_Deck.pdf)
+
+---
+
 ## Demo
 
 **Live demo patient:** Margaret R. Thompson · Lumbar MRI · Aetna · ICD-10 M72.5
