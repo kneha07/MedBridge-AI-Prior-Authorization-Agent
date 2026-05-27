@@ -21,7 +21,7 @@ $19.7B lost annually — not because the process is hard, but because humans are
 
 ## Presentation
 
-[Download Slide Deck (PDF)](presentation/MedBridge_Presentation_Deck.pdf)
+[Watch Demo Video](https://drive.google.com/file/d/1zcWHF-TiFEgXtzC-WMWpZdro0z7MHHWp/view?usp=drive_link) · [Download Slide Deck (PDF)](presentation/MedBridge_Presentation_Deck.pdf)
 
 ---
 
