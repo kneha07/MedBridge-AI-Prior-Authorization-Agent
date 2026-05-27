@@ -10,7 +10,7 @@ https://drive.google.com/file/d/1zcWHF-TiFEgXtzC-WMWpZdro0z7MHHWp/view?usp=drive
 
 ## Video Walkthrough
 
-> Add your video link here
+https://drive.google.com/file/d/1zcWHF-TiFEgXtzC-WMWpZdro0z7MHHWp/view?usp=drive_link
 
 ---
 
