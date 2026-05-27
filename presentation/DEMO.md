@@ -2,7 +2,7 @@
 
 ## Demo Link
 
-https://drive.google.com/file/d/1zcWHF-TiFEgXtzC-WMWpZdro0z7MHHWp/view?usp=drive_link
+https://drive.google.com/file/d/1cygGQlXmpLLv3FvAu5zmC6dwqmULOCZ2/view?usp=drive_link
 
 ## Slides
 
@@ -10,7 +10,7 @@ https://drive.google.com/file/d/1zcWHF-TiFEgXtzC-WMWpZdro0z7MHHWp/view?usp=drive
 
 ## Video Walkthrough
 
-https://drive.google.com/file/d/1zcWHF-TiFEgXtzC-WMWpZdro0z7MHHWp/view?usp=drive_link
+https://drive.google.com/file/d/1cygGQlXmpLLv3FvAu5zmC6dwqmULOCZ2/view?usp=drive_link
 
 ---
 
@@ -21,20 +21,57 @@ https://drive.google.com/file/d/1zcWHF-TiFEgXtzC-WMWpZdro0z7MHHWp/view?usp=drive
 ### INTRO — 30 sec
 *(show the homepage)*
 
-"Hi, my name is Neha Kumari. I'm a student at Northeastern University, and today I'm presenting MedBridge — an AI agent that automates healthcare prior authorization end to end.
+"Hi, my name is Neha Kumari. I'm a Computer Science student at Northeastern University, and today I'm presenting MedBridge — an AI agent that automates healthcare prior authorization, end to end."
 
-Prior authorization is the process where a doctor orders a treatment — an MRI, a surgery, a specialist referral — and the insurance company has to approve it before they'll pay. Today that process takes 3 to 5 business days, still runs on fax machines, and costs the U.S. healthcare system $19.7 billion a year in administrative burden alone.
+---
 
-MedBridge fixes that. Let me show you."
+### THE PROBLEM — 45 sec
+*(still on homepage)*
+
+"Let me start with the problem.
+
+Every time a physician orders an MRI, a surgery, or a specialist referral — the insurance company requires prior authorization before they'll pay. And the process today is completely broken.
+
+Staff manually fills out 10-plus-page forms and faxes them to insurance portals. Yes — still fax, in 2026. Payers take 3 to 5 business days just to respond. 1 in 5 requests gets denied — and when that happens, staff spends another 2 to 3 days drafting an appeal letter, pulling clinical notes, citing guidelines, and getting physician sign-off.
+
+The American Medical Association estimates this costs the U.S. healthcare system **$19.7 billion every single year.** Not because the process is medically complex — but because humans are doing work that AI should be doing."
+
+---
+
+### THE SOLUTION + WEB UI — 40 sec
+*(point to the form / scroll to it)*
+
+"So that's what MedBridge solves.
+
+MedBridge is the AI agent layer on top of existing payer portals. You fill out **one form** — right here in the web app. The agent handles everything else: scanning payer policies, analyzing the patient's medical records, filling and submitting the authorization, tracking the decision in real time, and if it gets denied — automatically drafting the appeal.
+
+The web UI is built in React with Vite. It polls the backend every 1.5 seconds, so every agent step appears live on screen as it happens — you watch the AI think and act in real time. There's nothing to install, nothing to configure. One form. Submit. Done.
+
+No fax. No waiting. No back and forth."
+
+---
+
+### TECH STACK — 45 sec
+*(still on the web app)*
+
+"Before I run the demo, a quick look under the hood — because the engineering choices here are deliberate.
+
+**Frontend:** React with Vite. Polls the backend every 1.5 seconds so every agent step appears live as it happens — no page refresh, no manual checks.
+
+**Backend:** FastAPI in Python 3.11. Two core endpoints: submit a workflow, poll its status. Lightweight, fast, production-ready.
+
+**The AI core:** Groq's API running LLaMA 3.3-70B. This is a real tool-use loop — the model receives descriptions of six healthcare tools, decides which one to call next, observes the result, and keeps going until the job is done. It is not a chatbot. It is not a hardcoded sequence. The model is making decisions at every step.
+
+**Compliance layer:** HIPAA-aware, CMS 2026 prior auth API standards, EDI 278 for electronic submission. Five major payers supported — Aetna, BCBS, UHC, Cigna, and Humana.
+
+The whole system is designed so adding a new healthcare workflow — step therapy exceptions, specialist referrals, medication appeals — is just one Python module."
 
 ---
 
 ### DEMO SETUP — 20 sec
 *(point to the form)*
 
-"What you're looking at is a prior authorization request form. In the real world, a physician's office staff would fill this out manually — multiple pages, lots of codes, lots of waiting.
-
-I'm going to click Try Demo to auto-fill a real patient scenario."
+"I'm going to click Try Demo to auto-fill a real patient scenario."
 
 *(click Try Demo)*
 
