@@ -2,6 +2,8 @@
 
 > Prior auth handled in minutes. Not days.
 
+> 🏆 **1st Place Winner** — AI Agents Hackathon #33 (OSS4AI × Beta Fund × Gravitational Ventures) | Solo build, 36 hours, $50K investment potential
+
 MedBridge is an AI agent that automates healthcare prior authorization end-to-end — from scanning payer policies and analyzing medical records, to submitting via EDI 278 and auto-drafting appeals on denial. Built to attack the **$19.7B annual administrative burden** U.S. healthcare carries for a process that still runs on fax machines.
 
 ---
@@ -187,3 +189,9 @@ MedBridge is built as a vertical platform — adding a new workflow is one Pytho
 - [Groq](https://groq.com/) — LLaMA 3.3-70B, free tier
 - [React](https://react.dev/) + [Vite](https://vitejs.dev/) — frontend
 - [Google Gemini](https://ai.google.dev/) — alternative AI provider
+
+---
+
+## License
+
+All Rights Reserved. This project may not be used, copied, or distributed without explicit permission. See [LICENSE](LICENSE).
