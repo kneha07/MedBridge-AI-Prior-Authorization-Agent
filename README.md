@@ -21,6 +21,18 @@ $19.7B lost annually — not because the process is hard, but because humans are
 
 ---
 
+## Screenshots
+
+| Landing | Prior Auth Form |
+|---|---|
+| ![Landing page](frontend/src/assets/screenshot_landing.png) | ![Form filled with demo data](frontend/src/assets/screenshot_form_filled.png) |
+
+| Agent Running | Workflow Progress |
+|---|---|
+| ![AI agent processing](frontend/src/assets/screenshot_workflow_running.png) | ![Workflow 80% complete with step details](frontend/src/assets/screenshot_workflow_complete.png) |
+
+---
+
 ## Presentation
 
 [Watch Demo Video](https://drive.google.com/file/d/1cygGQlXmpLLv3FvAu5zmC6dwqmULOCZ2/view?usp=drive_link) · [Download Slide Deck (PDF)](presentation/MedBridge_Presentation_Deck.pdf)
