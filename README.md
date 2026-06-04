@@ -2,7 +2,7 @@
 
 > Prior auth handled in minutes. Not days.
 
-> 🏆 **1st Place Winner** — AI Agents Hackathon #33 (OSS4AI × Beta Fund × Gravitational Ventures) | Solo build, 36 hours.
+> 🏆 **1st Place Winner** — AI Agents Hackathon (OSS4AI × Beta Fund × Gravitational Ventures) | Solo build, 36 hours.
 
 MedBridge is an AI agent that automates healthcare prior authorization end-to-end — from scanning payer policies and analyzing medical records, to submitting via EDI 278 and auto-drafting appeals on denial. Built to attack the **$19.7B annual administrative burden** U.S. healthcare carries for a process that still runs on fax machines.
 
